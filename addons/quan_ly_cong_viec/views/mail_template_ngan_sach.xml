@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="mail_template_am_ngan_sach" model="mail.template">
+            <field name="name">Thông báo âm ngân sách dự án</field>
+            <field name="model_id" ref="model_ngan_sach_du_an"/>
+            <field name="subject">Ngân sách dự án bị âm: ${object.ten_ngan_sach}</field>
+            <field name="email_from">${user.email_formatted}</field>
+            <field name="body_html" type="html">
+                <![CDATA[
+                <p>Kính gửi Ban Quản Lý,</p>
+                <p>Ngân sách dự án <b>${object.ten_ngan_sach}</b> thuộc dự án <b>${object.du_an_id.ten_du_an}</b> đã vượt quá mức cho phép.</p>
+                <ul>
+                    <li><b>Ngân sách dự kiến:</b> ${object.so_tien_du_kien}</li>
+                    <li><b>Số tiền đã chi:</b> ${object.so_tien_da_chi}</li>
+                    <li><b>Số tiền còn lại:</b> <span style="color:red;">${object.so_tien_con_lai}</span></li>
+                </ul>
+                <p>Vui lòng đăng nhập hệ thống để xem xét và duyệt cho phép âm ngân sách.</p>
+                <p>Trân trọng,<br/>Hệ thống quản lý dự án</p>
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

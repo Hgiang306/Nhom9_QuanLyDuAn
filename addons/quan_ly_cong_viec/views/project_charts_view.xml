@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Graph: Tiến độ dự án (stacked bar: count công việc theo trạng thái, nhóm theo dự án) -->
+    <record id="cong_viec_progress_graph_view" model="ir.ui.view">
+        <field name="name">cong.viec.progress.graph</field>
+        <field name="model">cong_viec</field>
+        <field name="arch" type="xml">
+            <graph string="Tiến độ dự án" type="bar" stacked="True">
+                <field name="id" type="measure"/>
+                <field name="du_an_id" type="row"/>
+                <field name="trang_thai" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_cong_viec_progress_graph" model="ir.actions.act_window">
+        <field name="name">Tiến độ dự án</field>
+        <field name="res_model">cong_viec</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="cong_viec_progress_graph_view"/>
+        <field name="context">{"graph_measure":"__count__","group_by":["du_an_id","trang_thai"]}</field>
+    </record>
+
+    <!-- Graph: Trạng thái dự án (pie: count dự án theo trạng thái) -->
+    <record id="du_an_status_graph_view" model="ir.ui.view">
+        <field name="name">du.an.status.graph</field>
+        <field name="model">du_an</field>
+        <field name="arch" type="xml">
+            <graph string="Trạng thái dự án" type="pie">
+                <field name="id" type="measure"/>
+                <field name="tien_do_du_an" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_du_an_status_graph" model="ir.actions.act_window">
+        <field name="name">Trạng thái dự án</field>
+        <field name="res_model">du_an</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="du_an_status_graph_view"/>
+        <field name="context">{"graph_measure":"__count__","group_by":["tien_do_du_an"]}</field>
+    </record>
+
+    <!-- Board view to show both graphs -->
+    <record id="project_charts_board_view" model="ir.ui.view">
+        <field name="name">project.charts.board</field>
+        <field name="model">board.board</field>
+        <field name="arch" type="xml">
+            <board style="2-2">
+                <column>
+                    <action name="action_cong_viec_progress_graph" string="Tiến độ dự án"/>
+                </column>
+                <column>
+                    <action name="action_du_an_status_graph" string="Trạng thái dự án"/>
+                </column>
+            </board>
+        </field>
+    </record>
+
+    <record id="project_charts_dashboard_action" model="ir.actions.act_window">
+        <field name="name">Biểu Đồ Dự Án</field>
+        <field name="res_model">board.board</field>
+        <field name="view_mode">board</field>
+        <field name="view_id" ref="project_charts_board_view"/>
+        <field name="context">{}</field>
+    </record>
+</odoo>

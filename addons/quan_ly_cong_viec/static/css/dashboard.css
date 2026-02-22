@@ -1,0 +1,213 @@
+/* Dashboard Wrapper */
+.modern_dashboard .dashboard_wrapper {
+    padding: 30px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+/* Stats Container (4 Card lớn phía trên) */
+.modern_dashboard .stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.modern_dashboard .stat-card {
+    padding: 30px 25px;
+    border-radius: 16px;
+    color: white !important; /* Đảm bảo chữ luôn trắng */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.modern_dashboard .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.1);
+    transition: left 0.3s;
+}
+
+.modern_dashboard .stat-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+}
+
+.modern_dashboard .stat-card:hover::before {
+    left: 100%;
+}
+
+.modern_dashboard .stat-icon {
+    font-size: 45px;
+    opacity: 0.95;
+}
+
+.modern_dashboard .stat-content {
+    flex: 1;
+}
+
+.modern_dashboard .stat-number {
+    font-size: 42px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1;
+}
+
+.modern_dashboard .stat-label {
+    font-size: 15px;
+    opacity: 0.95;
+    font-weight: 600;
+    margin: 8px 0 0 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.modern_dashboard .stat-more {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-top: 8px;
+}
+
+/* Màu sắc các Card chính */
+.modern_dashboard .stat-card.orange { background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%); }
+.modern_dashboard .stat-card.purple { background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); }
+.modern_dashboard .stat-card.pink   { background: linear-gradient(135deg, #F093FB 0%, #F5576C 100%); }
+.modern_dashboard .stat-card.teal   { background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%); }
+
+/* Status Container (4 Card nhỏ phía dưới) */
+.modern_dashboard .status-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 30px 0;
+}
+
+.modern_dashboard .status-card {
+    padding: 30px 20px;
+    border-radius: 14px;
+    text-align: center;
+    color: white !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    transition: all 0.3s ease;
+}
+
+.modern_dashboard .status-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+}
+
+.modern_dashboard .status-card h3 {
+    margin: 0 0 15px 0;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    opacity: 0.95;
+    color: white;
+}
+
+/* Lớp bao ngoài của field trong status card */
+.modern_dashboard .status-card .oe_inline, 
+.modern_dashboard .status-card div {
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 1;
+}
+
+/* Màu sắc Status Cards theo vị trí (nth-child) */
+.modern_dashboard .status-card:nth-child(1) { background: linear-gradient(135deg, #00C853 0%, #1DE9B6 100%); }
+.modern_dashboard .status-card:nth-child(2) { background: linear-gradient(135deg, #2196F3 0%, #00B8FF 100%); }
+.modern_dashboard .status-card:nth-child(3) { background: linear-gradient(135deg, #FFB300 0%, #FF9100 100%); }
+.modern_dashboard .status-card:nth-child(4) { background: linear-gradient(135deg, #F44336 0%, #E91E63 100%); }
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .modern_dashboard .stats-container, 
+    .modern_dashboard .status-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .modern_dashboard .stats-container, 
+    .modern_dashboard .status-container {
+        grid-template-columns: 1fr;
+    }
+    .modern_dashboard .stat-number { font-size: 32px; }
+}
+
+
+
+
+
+/* Container chứa các biểu đồ */
+.modern_dashboard .charts-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr; /* Tỉ lệ: Biểu đồ to - Noticeboard - Alumni */
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.modern_dashboard .chart-card {
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.modern_dashboard .chart-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Bảng dữ liệu Recent Admissions */
+.modern_dashboard .recent-admissions {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.modern_dashboard .table-header {
+    background: #5f6e7f; /* Màu xanh xám như ảnh */
+    color: white;
+    padding: 10px 15px;
+    font-weight: bold;
+    border-radius: 4px 4px 0 0;
+}
+
+.modern_dashboard table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.modern_dashboard th {
+    background: #f2f2f2;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.modern_dashboard td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.modern_dashboard tr:hover {
+    background: #f9f9f9;
+}

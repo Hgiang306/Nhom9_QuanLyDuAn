@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_cong_viec_graph" model="ir.ui.view">
+            <field name="name">cong_viec.graph</field>
+            <field name="model">cong_viec</field>
+            <field name="arch" type="xml">
+                <graph string="Biểu Đồ Tiến Độ Công Việc" type="bar">
+                    <field name="ten_cong_viec" type="row"/> 
+                    <field name="phan_tram_cong_viec" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_cong_viec_pivot" model="ir.ui.view">
+            <field name="name">cong_viec.pivot</field>
+            <field name="model">cong_viec</field>
+            <field name="arch" type="xml">
+                <pivot string="Thống Kê Công Việc">
+                    <field name="du_an_id" type="row"/>
+                    <field name="phan_tram_cong_viec" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="bieu_do_cong_viec_action" model="ir.actions.act_window">
+            <field name="name">Biểu Đồ Tiến Độ</field>
+            <field name="res_model">cong_viec</field>
+            <field name="view_mode">graph,pivot,tree,form</field>
+            <field name="view_id" ref="view_cong_viec_graph"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Chưa có dữ liệu để hiển thị biểu đồ.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_bieu_do_root" name="Báo cáo" sequence="10"/>
+        <menuitem id="menu_bieu_do_cong_viec" 
+                  name="Biểu đồ tiến độ" 
+                  parent="menu_bieu_do_root" 
+                  action="bieu_do_cong_viec_action"/>
+    </data>
+</odoo>

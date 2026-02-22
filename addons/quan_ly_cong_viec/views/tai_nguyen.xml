@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- TREE VIEW -->
+    <record id="view_tai_nguyen_tree" model="ir.ui.view">
+        <field name="name">tai_nguyen.tree</field>
+        <field name="model">tai_nguyen</field>
+        <field name="arch" type="xml">
+            <tree string="Tài Nguyên Dự Án">
+                <field name="employee_id"/>
+                <field name="du_an_id"/>
+                <field name="vai_tro"/>
+                <field name="ty_le_tham_gia"/>
+                <field name="ngay_bat_dau"/>
+                <field name="ngay_ket_thuc"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- FORM VIEW -->
+    <record id="view_tai_nguyen_form" model="ir.ui.view">
+        <field name="name">tai_nguyen.form</field>
+        <field name="model">tai_nguyen</field>
+        <field name="arch" type="xml">
+            <form string="Tài Nguyên Dự Án">
+                <sheet>
+                    <group col="4">
+                        <field name="employee_id"/>
+                        <field name="du_an_id"/>
+                        <field name="vai_tro"/>
+                        <field name="ty_le_tham_gia"/>
+                        <field name="ngay_bat_dau"/>
+                        <field name="ngay_ket_thuc"/>
+                        <field name="ghi_chu"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_tai_nguyen" model="ir.actions.act_window">
+        <field name="name">Tài Nguyên Dự Án</field>
+        <field name="res_model">tai_nguyen</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

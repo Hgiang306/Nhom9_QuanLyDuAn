@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ================= MENU GỐC ================= -->
+        <menuitem
+            id="menu_root_du_an"
+            name="Quản Lý Dự Án"
+            sequence="10"
+            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+
+        <!-- ================= DASHBOARD ================= -->
+        <menuitem
+            id="menu_dashboard"
+            name="Dashboard"
+            parent="menu_root_du_an"
+            sequence="1"
+            action="action_dashboard_main"
+            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+
+        <!-- ================= DỰ ÁN ================= -->
+        <menuitem
+            id="menu_du_an"
+            name="Dự Án"
+            parent="menu_root_du_an"
+            sequence="2"
+            action="action_du_an"
+            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+
+        <!-- ================= CÔNG VIỆC ================= -->
+        <menuitem
+            id="menu_cong_viec"
+            name="Công Việc"
+            parent="menu_root_du_an"
+            sequence="3"
+            action="action_cong_viec"
+            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+
+        <!-- ================= GIAI ĐOẠN ================= -->
+        <menuitem
+            id="menu_giai_doan_cong_viec"
+            name="Giai Đoạn Làm Việc"
+            parent="menu_root_du_an"
+            sequence="4"
+            action="action_giai_doan_cong_viec"
+            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+
+        <!-- ================= NHẬT KÝ ================= -->
+        <menuitem
+            id="menu_nhat_ky"
+            name="Nhật Ký Công Việc"
+            parent="menu_root_du_an"
+            sequence="5"
+            action="action_nhat_ky"
+            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+
+        <!-- ================= TÀI NGUYÊN ================= -->
+        <menuitem
+            id="menu_tai_nguyen"
+            name="Tài Nguyên Dự Án"
+            parent="menu_root_du_an"
+            sequence="6"
+            action="action_tai_nguyen"
+            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+
+        <!-- ================= ĐÁNH GIÁ ================= -->
+        <menuitem
+            id="menu_danh_gia_nhan_vien"
+            name="Đánh Giá Nhân Viên"
+            parent="menu_root_du_an"
+            sequence="7"
+            action="action_danh_gia_nhan_vien"
+            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+
+        <!-- ================= NGÂN SÁCH ================= -->
+        <menuitem
+            id="menu_ngan_sach_du_an"
+            name="Ngân Sách Dự Án"
+            parent="menu_root_du_an"
+            sequence="8"
+            action="ngan_sach_du_an_action"
+            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+
+        <!-- ================= CHI PHÍ ================= -->
+        <menuitem
+            id="menu_chi_phi_du_an"
+            name="Chi Phí Dự Án"
+            parent="menu_root_du_an"
+            sequence="9"
+            action="chi_phi_du_an_action"
+            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+
+        <!-- ================= BIỂU ĐỒ ================= -->
+        <menuitem
+            id="menu_bieu_do_cong_viec"
+            name="Biểu Đồ Công Việc"
+            parent="menu_root_du_an"
+            sequence="10"
+            action="bieu_do_cong_viec_action"
+            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+
+    </data>
+</odoo>

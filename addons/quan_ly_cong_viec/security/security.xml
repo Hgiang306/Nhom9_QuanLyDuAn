@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+
+        <!-- CATEGORY -->
+        <record id="module_category_quan_ly_du_an" model="ir.module.category">
+            <field name="name">Quản lý dự án</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- ADMIN -->
+        <record id="group_admin_du_an" model="res.groups">
+            <field name="name">Admin dự án</field>
+            <field name="category_id" ref="module_category_quan_ly_du_an"/>
+        </record>
+
+        <!-- NHÂN VIÊN -->
+        <record id="group_nhan_vien_du_an" model="res.groups">
+            <field name="name">Nhân viên dự án</field>
+            <field name="category_id" ref="module_category_quan_ly_du_an"/>
+        </record>
+
+    </data>
+</odoo>

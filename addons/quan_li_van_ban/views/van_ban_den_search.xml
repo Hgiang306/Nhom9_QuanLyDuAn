@@ -1,0 +1,13 @@
+<odoo>
+<record id="view_van_ban_den_search" model="ir.ui.view">
+    <field name="name">qlvb.van_ban_den.search</field>
+    <field name="model">qlvb.van_ban_den</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="so_van_ban"/>
+            <field name="ngay_den"/>
+            <field name="nhan_vien_xu_ly_id"/>
+        </search>
+    </field>
+</record>
+</odoo>

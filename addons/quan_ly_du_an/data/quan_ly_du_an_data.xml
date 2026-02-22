@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Tạo sẵn một bản ghi tổng hợp để người dùng truy cập ngay -->
+    <record id="quan_ly_du_an_default" model="quan_ly_du_an.cong_viec">
+        <field name="name">Tổng hợp công việc</field>
+    </record>
+</odoo>

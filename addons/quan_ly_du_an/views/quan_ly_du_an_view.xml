@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_quan_ly_du_an_tree" model="ir.ui.view">
+        <field name="name">quan_ly_du_an.tree</field>
+        <field name="model">quan_ly_du_an.cong_viec</field>
+        <field name="arch" type="xml">
+            <tree string="Quản Lý Công Việc" create="0" edit="0" delete="0">
+                <field name="name"/>
+                <field name="so_luong_cong_viec"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_quan_ly_du_an_form" model="ir.ui.view">
+        <field name="name">quan_ly_du_an.form</field>
+        <field name="model">quan_ly_du_an.cong_viec</field>
+        <field name="arch" type="xml">
+            <form string="Quản Lý Công Việc" create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="so_luong_cong_viec" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Tất cả công việc">
+                            <field name="cong_viec_ids" nolabel="1" readonly="1">
+                                <tree string="Công việc" create="0" edit="0" delete="0">
+                                    <field name="ten_cong_viec"/>
+                                    <field name="du_an_id"/>
+                                    <field name="nhan_vien_ids" widget="many2many_tags"/>
+                                    <field name="han_chot"/>
+                                    <field name="giai_doan_id"/>
+                                    <field name="phan_tram_cong_viec" widget="progressbar"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_quan_ly_du_an" model="ir.actions.act_window">
+        <field name="name">Quản Lý Dự Án</field>
+        <field name="res_model">quan_ly_du_an.cong_viec</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_root_quan_ly_du_an"
+              name="Quản Lý Công Việc"
+              sequence="50"/>
+    <menuitem id="menu_qlda_cong_viec"
+              name="Công Việc"
+              parent="menu_root_quan_ly_du_an"
+              action="quan_ly_cong_viec.action_cong_viec"
+              sequence="2"
+              groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+
+    <menuitem id="menu_quan_ly_du_an_tong_hop"
+              name="Tổng hợp công việc"
+              parent="menu_root_quan_ly_du_an"
+              action="action_quan_ly_du_an"
+              sequence="1"/>
+</odoo>

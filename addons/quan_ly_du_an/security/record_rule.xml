@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Cho phép tất cả người dùng nội bộ xem mọi công việc -->
+    <record id="rule_cong_viec_all_users_read" model="ir.rule">
+        <field name="name">Tất cả người dùng xem mọi công việc</field>
+        <field name="model_id" ref="quan_ly_cong_viec.model_cong_viec"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+</odoo>

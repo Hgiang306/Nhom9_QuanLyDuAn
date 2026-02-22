@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- 
+    <record id="rule_cong_viec_nv" model="ir.rule">
+        <field name="name">NV chỉ thấy công việc có mình tham gia</field>
+        <field name="model_id" ref="model_cong_viec"/>
+        <field name="groups" eval="[(4, ref('quan_ly_cong_viec.group_nhan_vien_du_an'))]"/>
+        <field name="domain_force">
+            [('nhan_vien_ids.user_id', '=', user.id)]
+        </field>
+    </record>
+
+    <record id="rule_cong_viec_admin" model="ir.rule">
+        <field name="name">Admin thấy tất cả công việc</field>
+        <field name="model_id" ref="model_cong_viec"/>
+        <field name="groups" eval="[(4, ref('quan_ly_cong_viec.group_admin_du_an'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+
+    <record id="rule_nhat_ky_admin" model="ir.rule">
+        <field name="name">Admin xem tất cả nhật ký</field>
+        <field name="model_id" ref="model_nhat_ky_cong_viec"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups"
+               eval="[(4, ref('quan_ly_cong_viec.group_admin_du_an'))]"/>
+    </record>
+
+    <record id="rule_nhat_ky_nhan_vien" model="ir.rule">
+        <field name="name">Nhân viên xem nhật ký của mình</field>
+        <field name="model_id" ref="model_nhat_ky_cong_viec"/>
+        <field name="domain_force">
+            [('nhan_vien_ids.user_id', '=', user.id)]
+        </field>
+        <field name="groups"
+               eval="[(4, ref('quan_ly_cong_viec.group_nhan_vien_du_an'))]"/>
+    </record>
+
+    <record id="rule_chi_phi_nv" model="ir.rule">
+        <field name="name">Nhân viên chỉ thấy chi phí của mình</field>
+        <field name="model_id" ref="model_chi_phi_du_an"/>
+        <field name="domain_force">
+            [('nhan_vien_id.user_id', '=', user.id)]
+        </field>
+        <field name="groups" eval="[(4, ref('quan_ly_cong_viec.group_nhan_vien_du_an'))]"/>
+    </record>
+
+    <record id="rule_danh_gia_nv" model="ir.rule">
+        <field name="name">Nhân viên chỉ xem đánh giá của mình</field>
+        <field name="model_id" ref="model_danh_gia_nhan_vien"/>
+        <field name="domain_force">
+            [('nhan_vien_id.user_id', '=', user.id)]
+        </field>
+        <field name="groups" eval="[(4, ref('quan_ly_cong_viec.group_nhan_vien_du_an'))]"/>
+    </record>
+
+ -->
+
+</odoo>
