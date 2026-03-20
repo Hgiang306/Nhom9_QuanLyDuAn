@@ -8,24 +8,26 @@
     'license': 'LGPL-3',
     'category': 'Uncategorized',
     'version': '0.1',
-    'depends': ['base', 'nhan_su', 'mail', 'board'],
+    'depends': ['base', 'quan_ly_du_an', 'mail', 'board'],
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
         'security/record_rule.xml',
-        'views/du_an_view.xml',
         'views/giai_doan_cong_viec_view.xml',
         'views/cong_viec_view.xml',
         'views/nhat_ky_cong_viec_view.xml',
-        'views/tai_nguyen.xml',
         'views/danh_gia_nhan_vien_view.xml',
-        'views/ngan_sach_du_an_view.xml',
-        'views/chi_phi_du_an_view.xml',
+        'views/du_an_extend_view.xml',
         'views/dashboard_view.xml',
         'views/action_my_cong_viec.xml',
-        'views/bieu_do_cong_viec_view.xml', 
+        'views/bieu_do_cong_viec_view.xml',
+        'views/lich_su_lam_viec_view.xml',
+        'views/nhan_vien_extend_view.xml',
+        'views/tre_han_view.xml',
         'views/menu.xml',  # Load sau cùng
     ],
+    'post_init_hook': 'post_init_hook',
+    'post_migrate': 'post_migrate',
     'icon': '/quan_ly_cong_viec/static/description/image.png',
     'assets': {
         'web.assets_backend': [
@@ -33,8 +35,8 @@
             '/quan_ly_cong_viec/static/css/dashboard.css',
             '/quan_ly_cong_viec/static/css/modern_dashboard.css',
             '/quan_ly_cong_viec/static/js/bieu_do_cong_viec.js',
-            '/quan_ly_cong_viec/static/js/progress_chart.js',
-            
+            '/quan_ly_cong_viec/static/js/gantt_chart.js',
+            '/quan_ly_cong_viec/static/js/dashboard_pie.js',
         ],
     },
 }

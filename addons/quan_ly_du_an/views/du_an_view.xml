@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_du_an_tree" model="ir.ui.view">
+        <field name="name">du_an.tree</field>
+        <field name="model">du_an</field>
+        <field name="arch" type="xml">
+            <tree string="Dự Án"
+                decoration-info="tien_do_du_an == 'chua_bat_dau'"
+                decoration-success="tien_do_du_an == 'dang_thuc_hien'"
+                decoration-muted="tien_do_du_an == 'hoan_thanh'"
+                decoration-danger="tien_do_du_an == 'tam_dung'">
+                <field name="ten_du_an"/>
+                <field name="nguoi_phu_trach_id"/>
+                <field name="nhan_vien_ids" widget="many2many_tags"/>
+                <field name="tien_do_du_an"/>
+                <field name="phan_tram_du_an" widget="progressbar"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_du_an_form" model="ir.ui.view">
+        <field name="name">du_an.form</field>
+        <field name="model">du_an</field>
+        <field name="arch" type="xml">
+            <form string="Dự Án">
+                <header>
+                    <field name="tien_do_du_an" widget="statusbar"
+                           statusbar_visible="chua_bat_dau,dang_thuc_hien,hoan_thanh"/>
+                </header>
+                <sheet>
+                    <group col="4">
+                        <field name="ten_du_an"/>
+                        <field name="mo_ta"/>
+                        <field name="nguoi_phu_trach_id"/>
+                        <field name="nhan_vien_ids" widget="many2many_tags"/>
+                        <field name="tien_do_du_an"/>
+                        <field name="phan_tram_du_an" widget="progressbar"/>
+                    </group>
+                    <notebook>
+                        <page string="Nhân Sự Dự Án">
+                            <field name="tai_nguyen_ids">
+                                <tree editable="bottom">
+                                    <field name="employee_id"/>
+                                    <field name="vai_tro"/>
+                                    <field name="ty_le_tham_gia"/>
+                                    <field name="ngay_bat_dau"/>
+                                    <field name="ngay_ket_thuc"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Rủi Ro">
+                            <field name="rui_ro_ids">
+                                <tree decoration-danger="muc_do_rui_ro == 'do'"
+                                      decoration-warning="muc_do_rui_ro == 'vang'"
+                                      decoration-success="trang_thai == 'da_xu_ly'">
+                                    <field name="ten_rui_ro"/>
+                                    <field name="loai_rui_ro"/>
+                                    <field name="diem_rui_ro" string="Điểm"/>
+                                    <field name="muc_do_rui_ro" widget="badge"
+                                           decoration-success="muc_do_rui_ro == 'xanh'"
+                                           decoration-warning="muc_do_rui_ro == 'vang'"
+                                           decoration-danger="muc_do_rui_ro == 'do'"/>
+                                    <field name="han_xu_ly"/>
+                                    <field name="trang_thai" widget="badge"
+                                           decoration-info="trang_thai == 'du_bao'"
+                                           decoration-warning="trang_thai == 'theo_doi'"
+                                           decoration-danger="trang_thai == 'su_co'"
+                                           decoration-success="trang_thai == 'da_xu_ly'"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_du_an_kanban" model="ir.ui.view">
+        <field name="name">du_an.kanban</field>
+        <field name="model">du_an</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="tien_do_du_an">
+                <field name="ten_du_an"/>
+                <field name="nguoi_phu_trach_id"/>
+                <field name="nhan_vien_ids"/>
+                <field name="tien_do_du_an"/>
+                <field name="phan_tram_du_an"/>
+                <field name="mo_ta"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click"
+                             style="border-radius:10px; overflow:hidden; border:none;
+                                    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+                                    margin-bottom:10px; width:100%; box-sizing:border-box;">
+                            <div t-attf-style="height:5px; background:
+                                #{record.tien_do_du_an.raw_value == 'hoan_thanh' ? 'linear-gradient(90deg,#22c55e,#16a34a)' :
+                                  record.tien_do_du_an.raw_value == 'dang_thuc_hien' ? 'linear-gradient(90deg,#3b82f6,#2563eb)' :
+                                  record.tien_do_du_an.raw_value == 'tam_dung' ? 'linear-gradient(90deg,#f59e0b,#d97706)' :
+                                  'linear-gradient(90deg,#94a3b8,#64748b)'};"/>
+                            <div class="oe_kanban_content" style="padding:14px 16px 12px;">
+                                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                                    <strong style="font-size:14px; color:#1e293b; line-height:1.4; flex:1;
+                                                   display:-webkit-box; -webkit-line-clamp:2;
+                                                   -webkit-box-orient:vertical; overflow:hidden;">
+                                        <field name="ten_du_an"/>
+                                    </strong>
+                                    <span t-attf-style="font-size:10px; font-weight:600; padding:2px 8px;
+                                        border-radius:20px; white-space:nowrap; margin-left:6px; flex-shrink:0;
+                                        background:#{record.tien_do_du_an.raw_value == 'hoan_thanh' ? '#dcfce7; color:#16a34a' :
+                                                    record.tien_do_du_an.raw_value == 'dang_thuc_hien' ? '#dbeafe; color:#2563eb' :
+                                                    record.tien_do_du_an.raw_value == 'tam_dung' ? '#fef3c7; color:#d97706' :
+                                                    '#f1f5f9; color:#64748b'};">
+                                        <t t-esc="record.tien_do_du_an.value"/>
+                                    </span>
+                                </div>
+                                <t t-if="record.mo_ta.raw_value">
+                                    <div style="font-size:11px; color:#94a3b8; margin-bottom:10px;
+                                                display:-webkit-box; -webkit-line-clamp:2;
+                                                -webkit-box-orient:vertical; overflow:hidden;">
+                                        <field name="mo_ta"/>
+                                    </div>
+                                </t>
+                                <div style="border-top:1px solid #f1f5f9; margin:8px 0;"/>
+                                <div style="display:flex; align-items:center; gap:6px; margin-bottom:8px; font-size:12px; color:#475569;">
+                                    <i class="fa fa-user-circle-o" title="Người phụ trách" style="color:#94a3b8;"/>
+                                    <span style="font-weight:500;"><field name="nguoi_phu_trach_id"/></span>
+                                </div>
+                                <div style="margin-bottom:10px;">
+                                    <field name="nhan_vien_ids" widget="many2many_tags"/>
+                                </div>
+                                <div>
+                                    <div style="display:flex; justify-content:space-between;
+                                                font-size:11px; color:#64748b; margin-bottom:4px;">
+                                        <span>Tiến độ</span>
+                                        <span style="font-weight:600;">
+                                            <field name="phan_tram_du_an" widget="float" digits="[3,0]"/>%
+                                        </span>
+                                    </div>
+                                    <div style="background:#e2e8f0; border-radius:6px; height:7px; overflow:hidden;">
+                                        <div t-attf-style="width:#{record.phan_tram_du_an.raw_value}%;
+                                            height:100%; border-radius:6px;
+                                            background:#{record.tien_do_du_an.raw_value == 'hoan_thanh' ? 'linear-gradient(90deg,#22c55e,#16a34a)' :
+                                                         record.tien_do_du_an.raw_value == 'dang_thuc_hien' ? 'linear-gradient(90deg,#3b82f6,#2563eb)' :
+                                                         record.tien_do_du_an.raw_value == 'tam_dung' ? 'linear-gradient(90deg,#f59e0b,#d97706)' :
+                                                         '#94a3b8'};
+                                            transition:width 0.4s ease;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_du_an_graph" model="ir.ui.view">
+        <field name="name">du_an.graph</field>
+        <field name="model">du_an</field>
+        <field name="arch" type="xml">
+            <graph string="Tiến Độ Dự Án" type="bar">
+                <field name="ten_du_an" type="row"/>
+                <field name="phan_tram_du_an" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_du_an" model="ir.actions.act_window">
+        <field name="name">Dự Án</field>
+        <field name="res_model">du_an</field>
+        <field name="view_mode">kanban,tree,form,graph</field>
+    </record>
+</odoo>

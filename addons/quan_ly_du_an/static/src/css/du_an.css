@@ -1,0 +1,13 @@
+/* Kanban cột đều nhau */
+.o_du_an_kanban .o_kanban_group {
+    flex: 1 1 0;
+    min-width: 220px;
+    max-width: none !important;
+    width: 0; /* flex sẽ tự chia đều */
+}
+
+.o_du_an_kanban.o_kanban_view {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+}

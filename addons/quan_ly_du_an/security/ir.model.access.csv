@@ -1,3 +1,13 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_quan_ly_du_an_admin,quan_ly_du_an admin,model_quan_ly_du_an_cong_viec,base.group_system,1,0,0,0
-access_quan_ly_du_an_user,quan_ly_du_an user,model_quan_ly_du_an_cong_viec,base.group_user,1,0,0,0
+access_du_an_admin,du_an admin,model_du_an,quan_ly_du_an.group_admin_du_an,1,1,1,1
+access_du_an_nv,du_an nv,model_du_an,quan_ly_du_an.group_nhan_vien_du_an,1,1,0,0
+access_du_an_user,du_an user,model_du_an,base.group_user,1,0,0,0
+access_tai_nguyen_admin,tai_nguyen admin,model_tai_nguyen,quan_ly_du_an.group_admin_du_an,1,1,1,1
+access_tai_nguyen_nv,tai_nguyen nv,model_tai_nguyen,quan_ly_du_an.group_nhan_vien_du_an,1,0,0,0
+access_ngan_sach_admin,ngan_sach admin,model_ngan_sach_du_an,quan_ly_du_an.group_admin_du_an,1,1,1,1
+access_ngan_sach_nv,ngan_sach nv,model_ngan_sach_du_an,quan_ly_du_an.group_nhan_vien_du_an,1,0,0,0
+access_chi_phi_admin,chi_phi admin,model_chi_phi_du_an,quan_ly_du_an.group_admin_du_an,1,1,1,1
+access_chi_phi_nv,chi_phi nv,model_chi_phi_du_an,quan_ly_du_an.group_nhan_vien_du_an,1,1,1,0
+access_rui_ro_admin,rui_ro admin,model_rui_ro,quan_ly_du_an.group_admin_du_an,1,1,1,1
+access_rui_ro_nv,rui_ro nv,model_rui_ro,quan_ly_du_an.group_nhan_vien_du_an,1,1,1,0
+access_rui_ro_user,rui_ro user,model_rui_ro,base.group_user,1,1,1,0

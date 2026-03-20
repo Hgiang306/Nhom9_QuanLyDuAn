@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ── Conversation tree ── -->
+    <record id="view_chatbot_conversation_tree" model="ir.ui.view">
+        <field name="name">chatbot.conversation.tree</field>
+        <field name="model">chatbot.conversation</field>
+        <field name="arch" type="xml">
+            <tree string="Lịch sử hội thoại">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_chatbot_conversation_form" model="ir.ui.view">
+        <field name="name">chatbot.conversation.form</field>
+        <field name="model">chatbot.conversation</field>
+        <field name="arch" type="xml">
+            <form string="Cuộc hội thoại">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="user_id"/>
+                        <field name="create_date"/>
+                    </group>
+                    <notebook>
+                        <page string="Tin nhắn">
+                            <field name="message_ids">
+                                <tree>
+                                    <field name="timestamp"/>
+                                    <field name="is_user" string="User?"/>
+                                    <field name="content"/>
+                                    <field name="intent"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_chatbot_conversation" model="ir.actions.act_window">
+        <field name="name">Lịch sử hội thoại</field>
+        <field name="res_model">chatbot.conversation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ── Assistant config ── -->
+    <record id="view_chatbot_assistant_form" model="ir.ui.view">
+        <field name="name">chatbot.assistant.form</field>
+        <field name="model">chatbot.assistant</field>
+        <field name="arch" type="xml">
+            <form string="Cấu hình Chatbot">
+                <sheet>
+                    <group string="Thông tin">
+                        <field name="name"/>
+                        <field name="active"/>
+                    </group>
+                    <group string="Gemini AI">
+                        <field name="use_gemini"/>
+                        <field name="gemini_api_key" password="True"
+                               attrs="{'invisible': [('use_gemini','=',False)]}"/>
+                        <field name="temperature"
+                               attrs="{'invisible': [('use_gemini','=',False)]}"/>
+                        <field name="max_tokens"
+                               attrs="{'invisible': [('use_gemini','=',False)]}"/>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        💡 Nếu không có Gemini API Key, chatbot sẽ dùng rule-based responses.
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_chatbot_assistant_tree" model="ir.ui.view">
+        <field name="name">chatbot.assistant.tree</field>
+        <field name="model">chatbot.assistant</field>
+        <field name="arch" type="xml">
+            <tree string="Chatbot">
+                <field name="name"/>
+                <field name="use_gemini"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_chatbot_assistant" model="ir.actions.act_window">
+        <field name="name">Cấu hình Chatbot</field>
+        <field name="res_model">chatbot.assistant</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

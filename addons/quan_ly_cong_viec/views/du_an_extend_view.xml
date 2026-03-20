@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_du_an_form_extend" model="ir.ui.view">
+        <field name="name">du_an.form.extend</field>
+        <field name="model">du_an</field>
+        <field name="inherit_id" ref="quan_ly_du_an.view_du_an_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Thêm button AI vào header -->
+            <xpath expr="//header/field[@name='tien_do_du_an']" position="before">
+                <button name="action_ai_assistant"
+                        string="Hỏi AI Trạng Thái"
+                        type="object"
+                        class="oe_highlight"
+                        icon="fa-android"/>
+            </xpath>
+
+            <!-- Thêm tab Công Việc và Nhật Ký trước tab Nhân Sự -->
+            <xpath expr="//notebook/page[1]" position="before">
+                <page string="Công Việc">
+                    <field name="cong_viec_ids">
+                        <tree editable="bottom"
+                            decoration-info="trang_thai == 'cho_xac_nhan'"
+                            decoration-warning="trang_thai == 'dang_thuc_hien'"
+                            decoration-success="trang_thai == 'hoan_thanh'"
+                            decoration-danger="trang_thai == 'tu_choi'">
+                            <field name="ten_cong_viec"/>
+                            <field name="nhan_vien_ids" widget="many2many_tags" string="Nhân Viên Tham Gia"/>
+                            <field name="han_chot" string="Hạn Chót"/>
+                            <field name="thoi_gian_con_lai" string="Ngày Còn"/>
+                            <field name="phan_tram_cong_viec" string="Tiến Độ (%)" widget="progressbar"/>
+                            <field name="trang_thai" string="Trạng Thái"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Nhật Ký Công Việc">
+                    <field name="nhat_ky_cong_viec_ids">
+                        <tree editable="bottom">
+                            <field name="trang_thai"/>
+                            <field name="ngay_thuc_hien"/>
+                            <field name="muc_do"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+
+            <!-- Thêm tab Đánh Giá sau tab Nhân Sự -->
+            <xpath expr="//notebook/page[last()]" position="after">
+                <page string="Đánh Giá Nhân Viên">
+                    <field name="danh_gia_nhan_vien_ids">
+                        <tree>
+                            <field name="cong_viec_id" string="Tên Công Việc"/>
+                            <field name="nhan_vien_id" string="Nhân Viên"/>
+                            <field name="diem_so" string="Điểm Số"/>
+                            <field name="nhan_xet" string="Nhận Xét"/>
+                            <field name="ngay_danh_gia" string="Ngày Đánh Giá"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

@@ -18,8 +18,10 @@
     <record id="action_my_cong_viec" model="ir.actions.act_window">
         <field name="name">Công việc của tôi</field>
         <field name="res_model">cong_viec</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,tree,form,calendar,activity,graph</field>
         <field name="domain">[('nhan_vien_ids.user_id', '=', uid)]</field>
+        <field name="context">{'search_default_my_tasks': 1}</field>
+        <field name="search_view_id" ref="quan_ly_cong_viec.view_cong_viec_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Bạn chưa được giao công việc nào!
@@ -30,6 +32,8 @@
     <record id="action_cong_viec" model="ir.actions.act_window">
         <field name="name">Tất cả công việc</field>
         <field name="res_model">cong_viec</field>
-        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="view_mode">tree,kanban,form,calendar,activity,graph</field>
+        <field name="context">{'default_group_by': 'giai_doan_ca_nhan_id'}</field>
+        <field name="search_view_id" ref="quan_ly_cong_viec.view_cong_viec_search"/>
     </record>
 </odoo>

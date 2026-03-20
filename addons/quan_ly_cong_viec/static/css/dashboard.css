@@ -1,7 +1,7 @@
 /* Dashboard Wrapper */
 .modern_dashboard .dashboard_wrapper {
     padding: 30px;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: #f8f9fb;
     min-height: 100vh;
 }
 
@@ -16,7 +16,6 @@
 .modern_dashboard .stat-card {
     padding: 30px 25px;
     border-radius: 16px;
-    color: white !important; /* Đảm bảo chữ luôn trắng */
     display: flex;
     align-items: center;
     gap: 20px;
@@ -79,10 +78,29 @@
 }
 
 /* Màu sắc các Card chính */
-.modern_dashboard .stat-card.orange { background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%); }
-.modern_dashboard .stat-card.purple { background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); }
-.modern_dashboard .stat-card.pink   { background: linear-gradient(135deg, #F093FB 0%, #F5576C 100%); }
-.modern_dashboard .stat-card.teal   { background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%); }
+.modern_dashboard .stat-card.orange {
+    background: linear-gradient(135deg, #fef0db 0%, #ffded5 100%);
+    color: #E65100;
+}
+.modern_dashboard .stat-card.orange .stat-icon { color: #E65100; }
+
+.modern_dashboard .stat-card.purple {
+    background: linear-gradient(135deg, #f1e7f9 0%, #cbbce8 100%);
+    color: #6A1B9A;
+}
+.modern_dashboard .stat-card.purple .stat-icon { color: #6A1B9A; }
+
+.modern_dashboard .stat-card.pink {
+    background: linear-gradient(135deg, #fde6e8 0%, #F8BBD0 100%);
+    color: #C62828;
+}
+.modern_dashboard .stat-card.pink .stat-icon { color: #C62828; }
+
+.modern_dashboard .stat-card.teal {
+    background: linear-gradient(135deg, #e2f2ff 0%, #c9ebfb 100%);
+    color: #0D47A1;
+}
+.modern_dashboard .stat-card.teal .stat-icon { color: #0D47A1; }
 
 /* Status Container (4 Card nhỏ phía dưới) */
 .modern_dashboard .status-container {
@@ -96,7 +114,6 @@
     padding: 30px 20px;
     border-radius: 14px;
     text-align: center;
-    color: white !important;
     box-shadow: 0 6px 20px rgba(0,0,0,0.12);
     transition: all 0.3s ease;
 }
@@ -125,10 +142,29 @@
 }
 
 /* Màu sắc Status Cards theo vị trí (nth-child) */
-.modern_dashboard .status-card:nth-child(1) { background: linear-gradient(135deg, #00C853 0%, #1DE9B6 100%); }
-.modern_dashboard .status-card:nth-child(2) { background: linear-gradient(135deg, #2196F3 0%, #00B8FF 100%); }
-.modern_dashboard .status-card:nth-child(3) { background: linear-gradient(135deg, #FFB300 0%, #FF9100 100%); }
-.modern_dashboard .status-card:nth-child(4) { background: linear-gradient(135deg, #F44336 0%, #E91E63 100%); }
+.modern_dashboard .status-card:nth-child(1) {
+    background: linear-gradient(135deg, #C8E6C9 0%, #90ccae 100%);
+    color: #1B5E20;
+}
+.modern_dashboard .status-card:nth-child(1) h3 { color: #1B5E20; }
+
+.modern_dashboard .status-card:nth-child(2) {
+    background: linear-gradient(135deg, #c2e2fd 0%, #9bdbf9 100%);
+    color: #0D47A1;
+}
+.modern_dashboard .status-card:nth-child(2) h3 { color: #0D47A1; }
+
+.modern_dashboard .status-card:nth-child(3) {
+    background: linear-gradient(135deg, #fffbd7 0%, #FFE0B2 100%);
+    color: #E65100;
+}
+.modern_dashboard .status-card:nth-child(3) h3 { color: #E65100; }
+
+.modern_dashboard .status-card:nth-child(4) {
+    background: linear-gradient(135deg, #f4b8be 0%, #F8BBD0 100%);
+    color: #B71C1C;
+}
+.modern_dashboard .status-card:nth-child(4) h3 { color: #B71C1C; }
 
 /* Responsive Design */
 @media (max-width: 1200px) {
@@ -184,7 +220,7 @@
 }
 
 .modern_dashboard .table-header {
-    background: #5f6e7f; /* Màu xanh xám như ảnh */
+    background: #86acd8; 
     color: white;
     padding: 10px 15px;
     font-weight: bold;

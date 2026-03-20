@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- noupdate="1": chỉ tạo lần đầu, không ghi đè khi upgrade -->
+    <data noupdate="1">
+        <record id="chatbot_assistant_default" model="chatbot.assistant">
+            <field name="name">AI Assistant - Quản Lý Dự Án</field>
+            <field name="use_gemini">True</field>
+            <field name="gemini_api_key">AIzaSyCPR3nhYVEO-VniXIJDr6Ff6SqZuKFpa-0</field>
+            <field name="active">True</field>
+            <field name="temperature">0.7</field>
+            <field name="max_tokens">1000</field>
+        </record>
+    </data>
+</odoo>

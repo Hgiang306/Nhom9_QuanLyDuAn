@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- TREE VIEW -->
+    <record id="ngan_sach_du_an_tree_view" model="ir.ui.view">
+        <field name="name">ngan_sach_du_an.tree</field>
+        <field name="model">ngan_sach_du_an</field>
+        <field name="arch" type="xml">
+            <tree string="Ngân Sách Dự Án">
+                <field name="ten_ngan_sach"/>
+                <field name="du_an_id"/>
+                <field name="loai_ngan_sach"/>
+                <field name="so_tien_du_kien" sum="Tổng Dự Kiến"/>
+                <field name="so_tien_da_chi" sum="Tổng Đã Chi"/>
+                <field name="so_tien_con_lai" sum="Tổng Còn Lại"/>
+                <field name="phan_tram_su_dung"/>
+                <field name="trang_thai"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- FORM VIEW -->
+    <record id="ngan_sach_du_an_form_view" model="ir.ui.view">
+        <field name="name">ngan_sach_du_an.form</field>
+        <field name="model">ngan_sach_du_an</field>
+        <field name="arch" type="xml">
+            <form string="Ngân Sách Dự Án">
+
+                <!-- HEADER -->
+                <header>
+                    <button name="action_duyet_am_ngan_sach"
+                            string="Duyệt Âm Ngân Sách"
+                            type="object"
+                            class="btn-danger"
+                            groups="quan_ly_du_an.group_admin_du_an"
+                            attrs="{'invisible': [('trang_thai', '!=', 'cho_duyet_am')]}"/>
+
+                    <button name="action_hoan_thanh"
+                            string="Hoàn Thành"
+                            type="object"
+                            class="btn-primary"
+                            attrs="{'invisible': [('trang_thai', '=', 'hoan_thanh')]}"/>
+
+                    <field name="trang_thai"
+                           widget="statusbar"
+                           statusbar_visible="du_kien,dang_su_dung,cho_duyet_am,hoan_thanh"/>
+                </header>
+
+                <!-- BODY -->
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="ten_ngan_sach"/>
+                            <field name="du_an_id"/>
+                            <field name="loai_ngan_sach"/>
+                            <field name="so_tien_du_kien"/>
+                        </group>
+
+                        <group>
+                            <field name="so_tien_da_chi" readonly="1"/>
+                            <field name="so_tien_con_lai" readonly="1"/>
+                            <field name="phan_tram_su_dung" widget="percentage" readonly="1"/>
+                            <field name="ngay_tao" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Mô Tả">
+                            <field name="mo_ta"/>
+                        </page>
+
+                        <page string="Chi Phí">
+                            <field name="chi_phi_ids" readonly="1">
+                                <tree>
+                                    <field name="ten_chi_phi"/>
+                                    <field name="loai_chi_phi"/>
+                                    <field name="so_tien" sum="Tổng Chi Phí"/>
+                                    <field name="ngay_chi"/>
+                                    <field name="trang_thai"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- SEARCH VIEW -->
+    <record id="ngan_sach_du_an_search_view" model="ir.ui.view">
+        <field name="name">ngan_sach_du_an.search</field>
+        <field name="model">ngan_sach_du_an</field>
+        <field name="arch" type="xml">
+            <search string="Tìm Kiếm Ngân Sách">
+                <field name="ten_ngan_sach"/>
+                <field name="du_an_id"/>
+                
+                <filter string="Dự Kiến"
+                        name="du_kien"
+                        domain="[('trang_thai', '=', 'du_kien')]"/>
+                        
+                <filter string="Đang Sử Dụng"
+                        name="dang_su_dung"
+                        domain="[('trang_thai', '=', 'dang_su_dung')]"/>
+                        
+                <filter string="Chờ Duyệt Âm"
+                        name="cho_duyet_am"
+                        domain="[('trang_thai', '=', 'cho_duyet_am')]"/>
+                        
+                <filter string="Hoàn Thành"
+                        name="hoan_thanh"
+                        domain="[('trang_thai', '=', 'hoan_thanh')]"/>
+                        
+                <group expand="0" string="Nhóm Theo">
+                    <filter string="Dự Án" name="group_du_an" context="{'group_by': 'du_an_id'}"/>
+                    <filter string="Loại Ngân Sách" name="group_loai" context="{'group_by': 'loai_ngan_sach'}"/>
+                    <filter string="Trạng Thái" name="group_trang_thai" context="{'group_by': 'trang_thai'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="ngan_sach_du_an_action" model="ir.actions.act_window">
+        <field name="name">Ngân Sách Dự Án</field>
+        <field name="res_model">ngan_sach_du_an</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

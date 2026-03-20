@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_quan_ly_du_an_root"
+              name="Quản Lý Dự Án"
+              sequence="10"/>
+
+    <menuitem id="menu_dashboard"
+              name="Dashboard"
+              parent="menu_quan_ly_du_an_root"
+              action="quan_ly_cong_viec.action_dashboard_main"
+              sequence="1"/>
+
+    <menuitem id="menu_du_an"
+              name="Dự Án"
+              parent="menu_quan_ly_du_an_root"
+              action="action_du_an"
+              sequence="1"/>
+
+    <menuitem id="menu_tai_nguyen"
+              name="Tài Nguyên"
+              parent="menu_quan_ly_du_an_root"
+              action="action_tai_nguyen"
+              sequence="2"/>
+
+    <menuitem id="menu_ngan_sach"
+              name="Ngân Sách"
+              parent="menu_quan_ly_du_an_root"
+              action="ngan_sach_du_an_action"
+              sequence="3"/>
+
+    <menuitem id="menu_chi_phi"
+              name="Chi Phí"
+              parent="menu_quan_ly_du_an_root"
+              action="chi_phi_du_an_action"
+              sequence="4"/>
+
+    <menuitem id="menu_rui_ro"
+              name="Rủi Ro Dự Án"
+              parent="menu_quan_ly_du_an_root"
+              action="action_rui_ro"
+              sequence="5"/>
+</odoo>

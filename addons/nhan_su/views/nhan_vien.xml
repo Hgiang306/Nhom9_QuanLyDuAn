@@ -31,12 +31,6 @@
                                    options="{'preview_image': 'image_1920'}"/>
                         </group>
 
-                        <notebook>
-                            <page string='Danh sách lịch sử làm việc'>
-                                <field name='lich_su_lam_viec_ids'/>
-                            </page>
-                        </notebook>
-
                     </sheet>
                 </form>
             </field>

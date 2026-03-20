@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <!-- Simple Dashboard View for Testing -->
+
     <record id="view_simple_dashboard_form" model="ir.ui.view">
         <field name="name">Dashboard View</field>
         <field name="model">dashboard</field>
@@ -9,49 +9,49 @@
             <form string="Dashboard" class="modern_dashboard" create="0" edit="0">
                 <div class="dashboard_wrapper">
                     <div class="stats-container">
-                        <div class="stat-card orange">
+                        <button type="object" name="action_open_nhan_vien" class="stat-card orange">
                             <div class="stat-icon">
                                 <i class="fa fa-users" title="Nhân viên"></i>
                             </div>
                             <div class="stat-content">
                                 <div class="stat-number"><field name="so_luong_nhan_vien" readonly="1"/></div>
                                 <div class="stat-label">Nhân Viên</div>
-                                <div class="stat-more">More Info</div>
+                                <div class="stat-more">Chi tiết</div>
                             </div>
-                        </div>
-                        
-                        <div class="stat-card purple">
+                        </button>
+
+                        <button type="object" name="action_open_du_an" class="stat-card purple">
                             <div class="stat-icon">
                                 <i class="fa fa-graduation-cap" title="Dự án"></i>
                             </div>
                             <div class="stat-content">
                                 <div class="stat-number"><field name="so_luong_du_an" readonly="1"/></div>
                                 <div class="stat-label">Dự Án</div>
-                                <div class="stat-more">More Info</div>
+                                <div class="stat-more">Chi tiết</div>
                             </div>
-                        </div>
-                        
-                        <div class="stat-card pink">
+                        </button>
+
+                        <button type="object" name="action_open_cong_viec" class="stat-card pink">
                             <div class="stat-icon">
                                 <i class="fa fa-tasks" title="Công việc"></i>
                             </div>
                             <div class="stat-content">
                                 <div class="stat-number"><field name="so_luong_cong_viec" readonly="1"/></div>
                                 <div class="stat-label">Công Việc</div>
-                                <div class="stat-more">More Info</div>
+                                <div class="stat-more">Chi tiết</div>
                             </div>
-                        </div>
-                        
-                        <div class="stat-card teal">
+                        </button>
+
+                        <button type="object" name="action_open_danh_gia" class="stat-card teal">
                             <div class="stat-icon">
                                 <i class="fa fa-clipboard-list" title="Danh sách"></i>
                             </div>
                             <div class="stat-content">
                                 <div class="stat-number"><field name="so_luong_danh_gia" readonly="1"/></div>
                                 <div class="stat-label">Đánh Giá</div>
-                                <div class="stat-more">More Info</div>
+                                <div class="stat-more">Chi tiết</div>
                             </div>
-                        </div>
+                        </button>
                     </div>
 
                     <div class="status-container">
@@ -79,55 +79,48 @@
                     
                     <div class="charts-grid">
                         <div class="chart-card">
-                            <div class="chart-title">Biểu Đồ Tiến Độ Dự Án Tổng Thể</div>
-                            <div class="chart-container" style="height: 250px; position: relative;">
-                                <canvas id="monthlyAdmissionChart"></canvas>
+                            <div class="chart-title">Biểu Đồ Công Việc</div>
+                            <div class="chart-container" style="height:250px; position:relative; display:flex; align-items:center; justify-content:center;">
+                                <canvas id="myPieChart" style="max-height:230px;"></canvas>
                             </div>
+                            <field name="pie_chart_data" invisible="1"/>
                         </div>
                         
                         <div class="chart-card noticeboard-card">
-                            <div class="chart-title pink-header">Noticeboard</div>
-                            <div class="empty-state">No Data</div>
+                            <div class="chart-title pink-header">📋 Dự Án Của Tôi</div>
+                            <div style="overflow-y:auto; max-height:220px; padding:0 4px;">
+                                <field name="du_an_cua_toi" widget="html" nolabel="1"/>
+                            </div>
                         </div>
 
                         <div class="chart-card alumni-card">
-                            <div class="chart-title purple-header">Alumni</div>
-                            <div class="alumni-content">
-                                <i class="fa fa-shield"/>
-                                <div class="alumni-number">0</div>
+                            <div class="chart-title purple-header">⚠️ Rủi Ro</div>
+                            <div style="overflow-y:auto; max-height:220px; padding:0 4px;">
+                                <field name="rui_ro_cua_toi" widget="html" nolabel="1"/>
                             </div>
                         </div>
                     </div>
 
                     <div class="bottom-grid">
                         <div class="chart-card">
-                            <div class="chart-title">Students in each standards</div>
-                            <canvas id="studentStandardChart"></canvas>
+                            <div class="chart-title">Tiến Độ Dự Án </div>
+                            <div style="height:250px; position:relative;">
+                                <canvas id="monthlyAdmissionChart"></canvas>
+                            </div>
                         </div>
 
                         <div class="recent-admissions">
-                            <div class="table-header">Recent Admissions</div>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Date</th>
-                                        <th>Admission Number</th>
-                                        <th>Student Name</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2017-11-07</td>
-                                        <td>2017/11/001</td>
-                                        <td>Mary</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="table-header">Nhân Viên Mới Nhất</div>
+                            <field name="danh_sach_nv_ids" mode="tree" readonly="1">
+                                <tree borderless="1" decoration-info="1">
+                                    <field name="name" string="Họ Tên"/>
+                                    <field name="phong_ban_id" string="Phòng Ban"/>
+                                </tree>
+                            </field>
                         </div>
                     </div>
-                </div> </form>
+                </div>
+            </form>
         </field>
     </record>
 
@@ -136,5 +129,6 @@
         <field name="res_model">dashboard</field>
         <field name="view_mode">form</field>
         <field name="target">current</field>
+        <field name="context">{'form_view_initial_mode': 'readonly'}</field>
     </record>
 </odoo>

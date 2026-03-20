@@ -13,13 +13,6 @@
             action="action_nhan_vien"
         />
 
-        <menuitem name="Lịch sử làm việc" 
-            id="menu_lich_su_lam_viec" 
-            parent="menu_root" 
-            sequence="2"
-            action="action_lich_su_lam_viec"
-        />
-
         <menuitem name="Quản lý chức vụ" 
             id="menu_chuc_vu" 
             parent="menu_root" 

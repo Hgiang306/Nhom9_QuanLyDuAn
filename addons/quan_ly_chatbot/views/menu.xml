@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Menu trong Quản Lý Công Việc -->
+    <menuitem id="menu_chatbot_root"
+              name="AI Chatbot"
+              parent="quan_ly_cong_viec.menu_root_du_an"
+              sequence="99"
+              groups="quan_ly_du_an.group_admin_du_an"/>
+
+    <menuitem id="menu_chatbot_history"
+              name="Lịch Sử Hội Thoại"
+              parent="menu_chatbot_root"
+              action="action_chatbot_conversation"
+              sequence="1"
+              groups="quan_ly_du_an.group_admin_du_an"/>
+
+    <menuitem id="menu_chatbot_config"
+              name="Cấu Hình Chatbot"
+              parent="menu_chatbot_root"
+              action="action_chatbot_assistant"
+              sequence="2"
+              groups="quan_ly_du_an.group_admin_du_an"/>
+</odoo>

@@ -1,22 +1,21 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_du_an_admin,du_an admin,model_du_an,quan_ly_cong_viec.group_admin_du_an,1,1,1,1
-access_du_an_nv,du_an nv,model_du_an,quan_ly_cong_viec.group_nhan_vien_du_an,1,1,0,0
-access_giai_doan_admin,giai_doan admin,model_giai_doan_cong_viec,quan_ly_cong_viec.group_admin_du_an,1,1,1,1
-access_giai_doan_nv,giai_doan nv,model_giai_doan_cong_viec,quan_ly_cong_viec.group_nhan_vien_du_an,1,0,0,0
-access_cong_viec_admin,cong_viec admin,model_cong_viec,quan_ly_cong_viec.group_admin_du_an,1,1,1,1
-access_cong_viec_nv,cong_viec nv,model_cong_viec,quan_ly_cong_viec.group_nhan_vien_du_an,1,1,1,0
-access_nhat_ky_admin,nhat_ky admin,model_nhat_ky_cong_viec,quan_ly_cong_viec.group_admin_du_an,1,1,1,1
-access_nhat_ky_nv,nhat_ky nv,model_nhat_ky_cong_viec,quan_ly_cong_viec.group_nhan_vien_du_an,1,1,1,0
-access_tai_nguyen_admin,tai_nguyen admin,model_tai_nguyen,quan_ly_cong_viec.group_admin_du_an,1,1,1,1
-access_danh_gia_admin,danh_gia admin,model_danh_gia_nhan_vien,quan_ly_cong_viec.group_admin_du_an,1,1,1,1
-access_ngan_sach_admin,ngan_sach admin,model_ngan_sach_du_an,quan_ly_cong_viec.group_admin_du_an,1,1,1,1
-access_chi_phi_admin,chi_phi admin,model_chi_phi_du_an,quan_ly_cong_viec.group_admin_du_an,1,1,1,1
-access_dashboard_admin,dashboard admin,model_dashboard,quan_ly_cong_viec.group_admin_du_an,1,0,0,0
-access_bieu_do_cv_admin,bieu_do cv admin,model_bieu_do_cong_viec,quan_ly_cong_viec.group_admin_du_an,1,1,1,1
-access_danh_gia_nv,danh_gia nv,model_danh_gia_nhan_vien,quan_ly_cong_viec.group_nhan_vien_du_an,1,0,0,0
-access_ngan_sach_nv,ngan_sach nv,model_ngan_sach_du_an,quan_ly_cong_viec.group_nhan_vien_du_an,1,0,0,0
-access_dashboard_nv,dashboard nv,model_dashboard,quan_ly_cong_viec.group_nhan_vien_du_an,1,0,0,0
-access_bieu_do_cv_nv,bieu_do cv nv,model_bieu_do_cong_viec,quan_ly_cong_viec.group_nhan_vien_du_an,1,1,1,0
-access_chi_phi_nv,chi_phi nv,model_chi_phi_du_an,quan_ly_cong_viec.group_nhan_vien_du_an,1,1,1,0
-access_tai_nguyen_nv,tai_nguyen nv,model_tai_nguyen,quan_ly_cong_viec.group_nhan_vien_du_an,1,0,0,0
+access_dashboard_all,dashboard_access,model_dashboard,base.group_user,1,1,1,1
+access_giai_doan_admin,giai_doan admin,model_giai_doan_cong_viec,quan_ly_du_an.group_admin_du_an,1,1,1,1
+access_giai_doan_nv,giai_doan nv,model_giai_doan_cong_viec,quan_ly_du_an.group_nhan_vien_du_an,1,0,0,0
+access_cong_viec_admin,cong_viec admin,model_cong_viec,quan_ly_du_an.group_admin_du_an,1,1,1,1
+access_cong_viec_nv,cong_viec nv,model_cong_viec,quan_ly_du_an.group_nhan_vien_du_an,1,1,1,0
+access_nhat_ky_admin,nhat_ky admin,model_nhat_ky_cong_viec,quan_ly_du_an.group_admin_du_an,1,1,1,1
+access_nhat_ky_nv,nhat_ky nv,model_nhat_ky_cong_viec,quan_ly_du_an.group_nhan_vien_du_an,1,1,1,0
+access_danh_gia_admin,danh_gia admin,model_danh_gia_nhan_vien,quan_ly_du_an.group_admin_du_an,1,1,1,1
+access_danh_gia_nv,danh_gia nv,model_danh_gia_nhan_vien,quan_ly_du_an.group_nhan_vien_du_an,1,0,0,0
+access_dashboard_admin,dashboard admin,model_dashboard,quan_ly_du_an.group_admin_du_an,1,0,0,0
+access_bieu_do_cv_admin,bieu_do cv admin,model_bieu_do_cong_viec,quan_ly_du_an.group_admin_du_an,1,1,1,1
+access_bieu_do_cv_nv,bieu_do cv nv,model_bieu_do_cong_viec,quan_ly_du_an.group_nhan_vien_du_an,1,1,1,0
+access_dashboard_nv,dashboard nv,model_dashboard,quan_ly_du_an.group_nhan_vien_du_an,1,0,0,0
 access_cong_viec_tu_choi_wizard,cong_viec_tu_choi_wizard,model_cong_viec_tu_choi_wizard,,1,1,1,1
+access_lich_su_lam_viec_admin,lich_su_lam_viec admin,model_lich_su_lam_viec,quan_ly_du_an.group_admin_du_an,1,1,1,1
+access_lich_su_lam_viec_nv,lich_su_lam_viec nv,model_lich_su_lam_viec,quan_ly_du_an.group_nhan_vien_du_an,1,1,1,1
+access_giai_doan_ca_nhan_admin,giai_doan_ca_nhan admin,model_giai_doan_ca_nhan,quan_ly_du_an.group_admin_du_an,1,1,1,1
+access_giai_doan_ca_nhan_nv,giai_doan_ca_nhan nv,model_giai_doan_ca_nhan,quan_ly_du_an.group_nhan_vien_du_an,1,1,1,1
+access_tre_han_admin,tre_han admin,model_tre_han,quan_ly_du_an.group_admin_du_an,1,1,1,1
+access_tre_han_nv,tre_han nv,model_tre_han,quan_ly_du_an.group_nhan_vien_du_an,1,0,0,0

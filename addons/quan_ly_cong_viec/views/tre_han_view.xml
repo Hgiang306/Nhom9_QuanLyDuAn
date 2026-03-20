@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Tree view -->
+    <record id="view_tre_han_tree" model="ir.ui.view">
+        <field name="name">tre.han.tree</field>
+        <field name="model">tre_han</field>
+        <field name="arch" type="xml">
+            <tree string="Công Việc Trễ Hạn"
+                  decoration-danger="muc_do == 'nang'"
+                  decoration-warning="muc_do == 'trung'"
+                  decoration-info="muc_do == 'nhe'"
+                  decoration-muted="da_xu_ly == True">
+                <field name="cong_viec_id"/>
+                <field name="du_an_id"/>
+                <field name="han_chot"/>
+                <field name="so_ngay_tre" string="Số Ngày Trễ"/>
+                <field name="muc_do" widget="badge"
+                       decoration-danger="muc_do == 'nang'"
+                       decoration-warning="muc_do == 'trung'"
+                       decoration-info="muc_do == 'nhe'"/>
+                <field name="trang_thai" widget="badge"/>
+                <field name="da_xu_ly" widget="boolean_toggle"/>
+                <field name="ngay_phat_hien"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view -->
+    <record id="view_tre_han_form" model="ir.ui.view">
+        <field name="name">tre.han.form</field>
+        <field name="model">tre_han</field>
+        <field name="arch" type="xml">
+            <form string="Chi Tiết Trễ Hạn">
+                <header>
+                    <field name="da_xu_ly" widget="boolean_button"
+                           options="{'terminology': {'string_true': 'Đã xử lý', 'string_false': 'Chưa xử lý'}}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="cong_viec_id" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Thông tin công việc">
+                            <field name="du_an_id" readonly="1"/>
+                            <field name="han_chot" readonly="1"/>
+                            <field name="trang_thai" readonly="1"/>
+                            <field name="nhan_vien_ids" readonly="1" widget="many2many_tags"/>
+                        </group>
+                        <group string="Thông tin trễ hạn">
+                            <field name="ngay_phat_hien" readonly="1"/>
+                            <field name="so_ngay_tre" readonly="1"/>
+                            <field name="muc_do" readonly="1"/>
+                            <field name="da_xu_ly"/>
+                        </group>
+                    </group>
+                    <group string="Ghi Chú">
+                        <field name="ghi_chu" nolabel="1" placeholder="Ghi chú xử lý..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search view -->
+    <record id="view_tre_han_search" model="ir.ui.view">
+        <field name="name">tre.han.search</field>
+        <field name="model">tre_han</field>
+        <field name="arch" type="xml">
+            <search string="Tìm kiếm trễ hạn">
+                <field name="cong_viec_id"/>
+                <field name="du_an_id"/>
+                <filter name="chua_xu_ly" string="Chưa xử lý" domain="[('da_xu_ly','=',False)]"/>
+                <filter name="da_xu_ly"   string="Đã xử lý"   domain="[('da_xu_ly','=',True)]"/>
+                <separator/>
+                <filter name="nang" string="🔴 Nặng"         domain="[('muc_do','=','nang')]"/>
+                <filter name="trung" string="🟠 Trung bình"  domain="[('muc_do','=','trung')]"/>
+                <filter name="nhe"  string="🟡 Nhẹ"          domain="[('muc_do','=','nhe')]"/>
+                <group expand="0" string="Nhóm theo">
+                    <filter name="group_du_an"  string="Dự Án"    context="{'group_by': 'du_an_id'}"/>
+                    <filter name="group_muc_do" string="Mức Độ"   context="{'group_by': 'muc_do'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_tre_han" model="ir.actions.act_window">
+        <field name="name">Công Việc Trễ Hạn</field>
+        <field name="res_model">tre_han</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('da_xu_ly','=',False)]</field>
+        <field name="context">{'search_default_chua_xu_ly': 1}</field>
+    </record>
+
+    <!-- Cron job -->
+    <record id="cron_cap_nhat_tre_han" model="ir.cron">
+        <field name="name">Cập nhật công việc trễ hạn</field>
+        <field name="model_id" ref="quan_ly_cong_viec.model_tre_han"/>
+        <field name="state">code</field>
+        <field name="code">model.cap_nhat_tre_han()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

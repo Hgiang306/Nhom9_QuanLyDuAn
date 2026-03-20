@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_nhan_vien_form_extend" model="ir.ui.view">
+        <field name="name">nhan_vien.form.extend.lich_su</field>
+        <field name="model">nhan_vien</field>
+        <field name="inherit_id" ref="nhan_su.view_nhan_vien_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page string="Lịch Sử Làm Việc">
+                        <field name="lich_su_lam_viec_ids">
+                            <tree>
+                                <field name="cong_viec_id" string="Công Việc"/>
+                                <field name="du_an_id" string="Dự Án"/>
+                                <field name="ma_phong_ban" string="Phòng Ban"/>
+                                <field name="ngay_ghi_nhan" string="Ngày Ghi Nhận"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

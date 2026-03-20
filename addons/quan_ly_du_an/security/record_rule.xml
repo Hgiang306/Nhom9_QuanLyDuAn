@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Cho phép tất cả người dùng nội bộ xem mọi công việc -->
-    <record id="rule_cong_viec_all_users_read" model="ir.rule">
-        <field name="name">Tất cả người dùng xem mọi công việc</field>
-        <field name="model_id" ref="quan_ly_cong_viec.model_cong_viec"/>
-        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
-        <field name="domain_force">[(1,'=',1)]</field>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
+    <record id="rule_chi_phi_nv" model="ir.rule">
+        <field name="name">Nhân viên chỉ thấy chi phí của mình</field>
+        <field name="model_id" ref="model_chi_phi_du_an"/>
+        <field name="groups" eval="[(4, ref('quan_ly_du_an.group_nhan_vien_du_an'))]"/>
+        <field name="domain_force">[('nguoi_chi.user_id', '=', user.id)]</field>
     </record>
 </odoo>

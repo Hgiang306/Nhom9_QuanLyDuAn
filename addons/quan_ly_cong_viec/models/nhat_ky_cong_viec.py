@@ -8,11 +8,10 @@ class NhatKyCongViec(models.Model):
 
     user_id = fields.Many2one(
         'res.users',
-        string='Người ghi nhật ký',
+        string='Nhân viên',
         default=lambda self: self.env.user,
         readonly=True
     )
-
     cong_viec_id = fields.Many2one('cong_viec', string='Công Việc', ondelete='cascade', tracking=True)
     du_an_id = fields.Many2one('du_an', string='Dự Án', related='cong_viec_id.du_an_id', store=True)
 
@@ -34,13 +33,6 @@ class NhatKyCongViec(models.Model):
         ('hoan_thanh', 'Hoàn Thành'),
         ('hoan_thanh_xuat_sac', 'Hoàn Thành Xuất Sắc'),
     ], string='Trạng Thái', default='chua_hoan_thanh', tracking=True)
-    
-    user_id = fields.Many2one(
-        'res.users',
-        string='Nhân viên',
-        default=lambda self: self.env.user,
-        readonly=True
-    )
     
     @api.onchange('cong_viec_id')
     def _onchange_cong_viec_id(self):
@@ -67,29 +59,6 @@ class NhatKyCongViec(models.Model):
             if not (0 <= record.muc_do <= 100):
                 raise ValidationError("Mức Độ Hoàn Thành phải nằm trong khoảng từ 0 đến 100.")
 
-    @api.model
-    def create(self, vals):
-        record = super(NhatKyCongViec, self).create(vals)
-        record.cong_viec_id._compute_phan_tram_cong_viec()
-        record.cong_viec_id.du_an_id._compute_phan_tram_du_an()
-        return record
-
-    def write(self, vals):
-        res = super(NhatKyCongViec, self).write(vals)
-        for record in self:
-            record.cong_viec_id._compute_phan_tram_cong_viec()
-            record.cong_viec_id.du_an_id._compute_phan_tram_du_an()
-        return res
-
-    def unlink(self):
-        records = self.mapped('cong_viec_id')
-        res = super(NhatKyCongViec, self).unlink()
-        for record in records:
-            record._compute_phan_tram_cong_viec()
-            record.du_an_id._compute_phan_tram_du_an()
-        return res
-
-
     phan_tram_cong_viec = fields.Float(string="Tiến Độ Công Việc", compute="_compute_phan_tram_cong_viec", store=True)
 
     @api.depends('cong_viec_id', 'cong_viec_id.phan_tram_cong_viec')
@@ -113,39 +82,79 @@ class NhatKyCongViec(models.Model):
                 raise ValidationError(
                     "Bạn chỉ có thể cập nhật nhật ký sau khi xác nhận nhận việc."
                 )
-                
+
     @api.model
     def create(self, vals):
         record = super().create(vals)
-
-        admin_group = self.env.ref(
-            'quan_ly_cong_viec.group_admin_du_an',
-            raise_if_not_found=False
-        )
-
+        if record.cong_viec_id:
+            record.cong_viec_id._compute_phan_tram_cong_viec()
+            cv = record.cong_viec_id
+            if cv.phan_tram_cong_viec >= 100 and cv.trang_thai == 'dang_thuc_hien':
+                cv.trang_thai = 'cho_phe_duyet'
+            if cv.du_an_id:
+                cv.du_an_id._compute_phan_tram_du_an()
+                cv.du_an_id._post_compute_tien_do()
+        admin_group = self.env.ref('quan_ly_du_an.group_admin_du_an', raise_if_not_found=False)
         if admin_group:
-            admins = self.env['res.users'].search([
-                ('groups_id', 'in', admin_group.id)
-            ])
-
-            record.message_subscribe(
-                partner_ids=admins.mapped('partner_id').ids
-            )
-
+            admins = self.env['res.users'].search([('groups_id', 'in', admin_group.id)])
+            record.message_subscribe(partner_ids=admins.mapped('partner_id').ids)
         return record
-    
+
     def write(self, vals):
         res = super().write(vals)
-
+        if 'muc_do' in vals:
+            for record in self:
+                if record.cong_viec_id:
+                    record.cong_viec_id._compute_phan_tram_cong_viec()
+                    cv = record.cong_viec_id
+                    if cv.phan_tram_cong_viec >= 100 and cv.trang_thai == 'dang_thuc_hien':
+                        cv.trang_thai = 'cho_phe_duyet'
+                    if cv.du_an_id:
+                        cv.du_an_id._compute_phan_tram_du_an()
+                        cv.du_an_id._post_compute_tien_do()
+        if 'trang_thai' in vals and vals['trang_thai'] in ('hoan_thanh', 'hoan_thanh_xuat_sac'):
+            for record in self:
+                record._cap_nhat_lich_su()
         if 'trang_thai' in vals:
             for record in self:
                 record.message_post(
-                    body=f"""
-                    Trạng thái công việc đã thay đổi:<br/>
-                    <b>{dict(self._fields['trang_thai'].selection).get(record.trang_thai)}</b><br/>
-                    Người cập nhật: <b>{self.env.user.name}</b>
-                    """,
+                    body=f"Trạng thái công việc đã thay đổi:<br/>"
+                         f"<b>{dict(self._fields['trang_thai'].selection).get(record.trang_thai)}</b><br/>"
+                         f"Người cập nhật: <b>{self.env.user.name}</b>",
                     subtype_xmlid='mail.mt_comment'
                 )
-
         return res
+
+    def unlink(self):
+        cong_viec_ids = self.mapped('cong_viec_id')
+        res = super().unlink()
+        for cv in cong_viec_ids:
+            cv._compute_phan_tram_cong_viec()
+            if cv.du_an_id:
+                cv.du_an_id._compute_phan_tram_du_an()
+                cv.du_an_id._post_compute_tien_do()
+        return res
+
+    def _cap_nhat_lich_su(self):
+        """Tạo hoặc cập nhật lịch sử làm việc khi nhật ký hoàn thành."""
+        self.ensure_one()
+        if not self.cong_viec_id:
+            return
+        for nv in self.nhan_vien_ids:
+            lich_su = self.env['lich_su_lam_viec'].search([
+                ('cong_viec_id', '=', self.cong_viec_id.id),
+                ('nhan_vien_id', '=', nv.id),
+            ], limit=1)
+            vals = {
+                'du_an_id': self.cong_viec_id.du_an_id.id if self.cong_viec_id.du_an_id else False,
+                'ngay_ghi_nhan': fields.Date.today(),
+            }
+            if lich_su:
+                lich_su.write(vals)
+            else:
+                vals.update({
+                    'cong_viec_id': self.cong_viec_id.id,
+                    'nhan_vien_id': nv.id,
+                    'ma_phong_ban': nv.phong_ban_id.id if nv.phong_ban_id else False,
+                })
+                self.env['lich_su_lam_viec'].create(vals)

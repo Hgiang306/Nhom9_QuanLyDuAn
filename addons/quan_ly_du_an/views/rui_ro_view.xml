@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ==================== FORM ==================== -->
+    <record id="view_rui_ro_form" model="ir.ui.view">
+        <field name="name">rui_ro.form</field>
+        <field name="model">rui_ro</field>
+        <field name="arch" type="xml">
+            <form string="Rủi Ro Dự Án">
+                <header>
+                    <button name="action_theo_doi" type="object" string="Theo Dõi"
+                            class="btn-warning" icon="fa-eye"
+                            attrs="{'invisible': [('trang_thai', 'not in', ['du_bao'])]}"/>
+                    <button name="action_su_co" type="object" string="Đánh Dấu Sự Cố"
+                            class="btn-danger" icon="fa-exclamation-triangle"
+                            attrs="{'invisible': [('trang_thai', 'not in', ['du_bao','theo_doi'])]}"/>
+                    <button name="action_chuyen_thanh_cong_viec" type="object"
+                            string="Tạo Công Việc Xử Lý" class="btn-danger" icon="fa-tasks"
+                            attrs="{'invisible': [('trang_thai', '!=', 'su_co')]}"/>
+                    <button name="action_da_xu_ly" type="object" string="Đã Xử Lý"
+                            class="btn-success" icon="fa-check"
+                            attrs="{'invisible': [('trang_thai', 'not in', ['theo_doi','su_co'])]}"/>
+                    <button name="action_reset_du_bao" type="object" string="Đặt Lại"
+                            class="btn-secondary"
+                            attrs="{'invisible': [('trang_thai', 'not in', ['theo_doi','da_xu_ly'])]}"/>
+                    <field name="trang_thai" widget="statusbar"
+                           statusbar_visible="du_bao,theo_doi,su_co,da_xu_ly"/>
+                </header>
+                <sheet>
+                    <!-- Badge mức độ rủi ro nổi bật -->
+                    <div class="oe_title">
+                        <label for="ten_rui_ro"/>
+                        <h1><field name="ten_rui_ro" placeholder="Tên rủi ro..."/></h1>
+                        <div>
+                            <field name="muc_do_rui_ro" widget="badge"
+                                   decoration-success="muc_do_rui_ro == 'xanh'"
+                                   decoration-warning="muc_do_rui_ro == 'vang'"
+                                   decoration-danger="muc_do_rui_ro == 'do'"/>
+                            <span class="ml-2" style="font-size:18px; font-weight:700;">
+                                Điểm: <field name="diem_rui_ro" readonly="1" nolabel="1"/>
+                                <span style="color:#94a3b8;">/25</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <group>
+                        <group string="Thông Tin Chung">
+                            <field name="du_an_id"/>
+                            <field name="loai_rui_ro"/>
+                            <field name="nguoi_bao_cao_id"/>
+                            <field name="ngay_phat_hien"/>
+                            <field name="han_xu_ly"/>
+                        </group>
+                        <group string="Ma Trận Rủi Ro">
+                            <field name="xac_suat" widget="radio"/>
+                            <field name="tac_dong" widget="radio"/>
+                            <field name="diem_rui_ro" readonly="1"
+                                   decoration-danger="diem_rui_ro &gt;= 17"
+                                   decoration-warning="diem_rui_ro &gt;= 10"/>
+                        </group>
+                    </group>
+
+                    <group string="Người Chịu Trách Nhiệm">
+                        <field name="nguoi_chiu_trach_nhiem_ids"
+                               widget="many2many_tags" nolabel="1"/>
+                    </group>
+
+                    <group string="Mô Tả &amp; Giải Pháp">
+                        <field name="mo_ta" nolabel="1" colspan="2"
+                               placeholder="Mô tả chi tiết rủi ro..."/>
+                        <field name="khac_phuc" nolabel="1" colspan="2"
+                               placeholder="Giải pháp khắc phục / phương án dự phòng..."/>
+                    </group>
+
+                    <!-- cong_viec_id không hiển thị trong form để tránh lỗi _unknown onchange -->
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- ==================== TREE ==================== -->
+    <record id="view_rui_ro_tree" model="ir.ui.view">
+        <field name="name">rui_ro.tree</field>
+        <field name="model">rui_ro</field>
+        <field name="arch" type="xml">
+            <tree string="Danh Sách Rủi Ro"
+                  decoration-danger="muc_do_rui_ro == 'do'"
+                  decoration-warning="muc_do_rui_ro == 'vang'"
+                  decoration-success="trang_thai == 'da_xu_ly'">
+                <field name="ten_rui_ro"/>
+                <field name="du_an_id"/>
+                <field name="loai_rui_ro"/>
+                <field name="xac_suat"/>
+                <field name="tac_dong"/>
+                <field name="diem_rui_ro" string="Điểm"/>
+                <field name="muc_do_rui_ro" widget="badge"
+                       decoration-success="muc_do_rui_ro == 'xanh'"
+                       decoration-warning="muc_do_rui_ro == 'vang'"
+                       decoration-danger="muc_do_rui_ro == 'do'"/>
+                <field name="han_xu_ly"/>
+                <field name="trang_thai" widget="badge"
+                       decoration-info="trang_thai == 'du_bao'"
+                       decoration-warning="trang_thai == 'theo_doi'"
+                       decoration-danger="trang_thai == 'su_co'"
+                       decoration-success="trang_thai == 'da_xu_ly'"/>
+                <field name="so_luong_nguoi_chiu_trach_nhiem" string="Người PT"/>
+                <field name="muc_do_rui_ro" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ==================== KANBAN ==================== -->
+    <record id="view_rui_ro_kanban" model="ir.ui.view">
+        <field name="name">rui_ro.kanban</field>
+        <field name="model">rui_ro</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="trang_thai" class="o_kanban_small_column">
+                <field name="ten_rui_ro"/>
+                <field name="du_an_id"/>
+                <field name="diem_rui_ro"/>
+                <field name="muc_do_rui_ro"/>
+                <field name="trang_thai"/>
+                <field name="loai_rui_ro"/>
+                <field name="han_xu_ly"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click"
+                             style="border-radius:10px; overflow:hidden; border:none;
+                                    box-shadow:0 2px 8px rgba(0,0,0,0.08); margin-bottom:8px;">
+                            <!-- Color bar theo mức độ -->
+                            <div t-attf-style="height:5px; background:
+                                #{record.muc_do_rui_ro.raw_value == 'do'   ? 'linear-gradient(90deg,#ef4444,#dc2626)' :
+                                  record.muc_do_rui_ro.raw_value == 'vang' ? 'linear-gradient(90deg,#f59e0b,#d97706)' :
+                                  'linear-gradient(90deg,#22c55e,#16a34a)'};"/>
+                            <div style="padding:12px 14px 10px;">
+                                <!-- Điểm rủi ro badge -->
+                                <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                                    <span t-attf-style="font-size:10px; font-weight:700; padding:2px 8px;
+                                        border-radius:20px;
+                                        background:#{record.muc_do_rui_ro.raw_value == 'do'   ? '#fee2e2; color:#dc2626' :
+                                                     record.muc_do_rui_ro.raw_value == 'vang' ? '#fef3c7; color:#d97706' :
+                                                     '#dcfce7; color:#16a34a'};">
+                                        <t t-esc="record.muc_do_rui_ro.value"/>
+                                    </span>
+                                    <span style="font-size:18px; font-weight:800; color:#1e293b;">
+                                        <t t-esc="record.diem_rui_ro.value"/>
+                                        <span style="font-size:11px; color:#94a3b8;">/25</span>
+                                    </span>
+                                </div>
+                                <!-- Tên -->
+                                <strong style="font-size:13px; color:#1e293b; display:block; margin-bottom:6px;
+                                               display:-webkit-box; -webkit-line-clamp:2;
+                                               -webkit-box-orient:vertical; overflow:hidden;">
+                                    <field name="ten_rui_ro"/>
+                                </strong>
+                                <!-- Dự án + loại -->
+                                <div style="font-size:11px; color:#64748b; margin-bottom:4px;">
+                                    <i class="fa fa-folder-o mr-1" role="img" aria-label="Dự án" title="Dự án"/>
+                                    <field name="du_an_id"/>
+                                </div>
+                                <div style="font-size:11px; color:#94a3b8;">
+                                    <i class="fa fa-tag mr-1" role="img" aria-label="Loại" title="Loại"/>
+                                    <field name="loai_rui_ro"/>
+                                </div>
+                                <!-- Hạn xử lý -->
+                                <t t-if="record.han_xu_ly.raw_value">
+                                    <div style="font-size:11px; color:#ef4444; margin-top:6px;">
+                                        <i class="fa fa-clock-o mr-1" role="img" aria-label="Hạn xử lý" title="Hạn xử lý"/>
+                                        <field name="han_xu_ly"/>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- ==================== GRAPH ==================== -->
+    <record id="view_rui_ro_graph" model="ir.ui.view">
+        <field name="name">rui_ro.graph</field>
+        <field name="model">rui_ro</field>
+        <field name="arch" type="xml">
+            <graph string="Phân Tích Rủi Ro" type="bar">
+                <field name="loai_rui_ro" type="row"/>
+                <field name="muc_do_rui_ro" type="col"/>
+                <field name="diem_rui_ro" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ==================== CALENDAR ==================== -->
+    <record id="view_rui_ro_calendar" model="ir.ui.view">
+        <field name="name">rui_ro.calendar</field>
+        <field name="model">rui_ro</field>
+        <field name="arch" type="xml">
+            <calendar string="Lịch Rủi Ro" date_start="han_xu_ly"
+                      color="muc_do_rui_ro" mode="month"
+                      quick_add="False">
+                <field name="ten_rui_ro"/>
+                <field name="du_an_id"/>
+                <field name="muc_do_rui_ro"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- ==================== SEARCH ==================== -->
+    <record id="view_rui_ro_search" model="ir.ui.view">
+        <field name="name">rui_ro.search</field>
+        <field name="model">rui_ro</field>
+        <field name="arch" type="xml">
+            <search string="Tìm Rủi Ro">
+                <field name="ten_rui_ro"/>
+                <field name="du_an_id"/>
+                <separator/>
+                <!-- Lọc theo thời gian hạn xử lý -->
+                <filter string="Hôm Nay" name="han_hom_nay"
+                        domain="[('han_xu_ly','&gt;=',context_today().strftime('%Y-%m-%d')),
+                                 ('han_xu_ly','&lt;',(context_today()+relativedelta(days=1)).strftime('%Y-%m-%d'))]"/>
+                <filter string="Tuần Này" name="han_tuan_nay"
+                        domain="[('han_xu_ly','&gt;=', (context_today() + relativedelta(weeks=-1,weekday=0)).strftime('%Y-%m-%d')),
+                                 ('han_xu_ly','&lt;', (context_today() + relativedelta(weekday=6,days=1)).strftime('%Y-%m-%d'))]"/>
+                <filter string="Tháng Này" name="han_thang_nay"
+                        domain="[('han_xu_ly','&gt;=',context_today().strftime('%Y-%m-01')),
+                                 ('han_xu_ly','&lt;',(context_today()+relativedelta(months=1)).strftime('%Y-%m-01'))]"/>
+                <filter string="Tháng Sau" name="han_thang_sau"
+                        domain="[('han_xu_ly','&gt;=', (context_today()+relativedelta(months=1)).strftime('%Y-%m-01')),
+                                 ('han_xu_ly','&lt;', (context_today()+relativedelta(months=2)).strftime('%Y-%m-01'))]"/>
+                <separator/>
+                <filter string="Mức Đỏ (≥17)" name="muc_do"
+                        domain="[('muc_do_rui_ro','=','do')]"/>
+                <filter string="Mức Vàng (10-16)" name="muc_vang"
+                        domain="[('muc_do_rui_ro','=','vang')]"/>
+                <filter string="Đã Xảy Ra" name="su_co"
+                        domain="[('trang_thai','=','su_co')]"/>
+                <filter string="Quá Hạn" name="qua_han"
+                        domain="[('han_xu_ly','&lt;',context_today().strftime('%Y-%m-%d')),
+                                 ('trang_thai','!=','da_xu_ly')]"/>
+                <filter string="Chưa Xử Lý" name="chua_xu_ly"
+                        domain="[('trang_thai','!=','da_xu_ly')]"/>
+                <separator/>
+                <group expand="0" string="Nhóm Theo">
+                    <filter string="Loại Rủi Ro" name="group_loai"
+                            context="{'group_by':'loai_rui_ro'}"/>
+                    <filter string="Mức Độ" name="group_muc_do"
+                            context="{'group_by':'muc_do_rui_ro'}"/>
+                    <filter string="Dự Án" name="group_du_an"
+                            context="{'group_by':'du_an_id'}"/>
+                    <filter string="Trạng Thái" name="group_trang_thai"
+                            context="{'group_by':'trang_thai'}"/>
+                    <filter string="Hạn Xử Lý (Tháng)" name="group_thang"
+                            context="{'group_by':'han_xu_ly:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ==================== ACTION ==================== -->
+    <record id="action_rui_ro" model="ir.actions.act_window">
+        <field name="name">Rủi Ro Dự Án</field>
+        <field name="res_model">rui_ro</field>
+        <field name="view_mode">kanban,tree,form,calendar,graph</field>
+        <field name="search_view_id" ref="view_rui_ro_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Chưa có rủi ro nào được ghi nhận. Tốt lắm!
+            </p>
+        </field>
+    </record>
+
+    <!-- ==================== CRON ==================== -->
+    <record id="ir_cron_canh_bao_rui_ro" model="ir.cron">
+        <field name="name">Cảnh Báo Rủi Ro Tự Động</field>
+        <field name="model_id" ref="model_rui_ro"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_canh_bao_rui_ro()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+
+</odoo>

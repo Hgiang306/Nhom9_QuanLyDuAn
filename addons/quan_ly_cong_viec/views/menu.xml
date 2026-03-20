@@ -5,99 +5,131 @@
         <!-- ================= MENU GỐC ================= -->
         <menuitem
             id="menu_root_du_an"
-            name="Quản Lý Dự Án"
+            name="Quản Lý Công Việc"
             sequence="10"
-            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+            groups="quan_ly_du_an.group_admin_du_an,quan_ly_du_an.group_nhan_vien_du_an"/>
 
         <!-- ================= DASHBOARD ================= -->
-        <menuitem
+        <!-- <menuitem
             id="menu_dashboard"
             name="Dashboard"
             parent="menu_root_du_an"
             sequence="1"
             action="action_dashboard_main"
-            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+            groups="quan_ly_du_an.group_admin_du_an,quan_ly_du_an.group_nhan_vien_du_an"/> -->
 
         <!-- ================= DỰ ÁN ================= -->
-        <menuitem
+        <!-- <menuitem
             id="menu_du_an"
             name="Dự Án"
             parent="menu_root_du_an"
             sequence="2"
             action="action_du_an"
-            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+            groups="quan_ly_du_an.group_admin_du_an,quan_ly_du_an.group_nhan_vien_du_an"/> -->
 
         <!-- ================= CÔNG VIỆC ================= -->
         <menuitem
             id="menu_cong_viec"
             name="Công Việc"
             parent="menu_root_du_an"
-            sequence="3"
+            sequence="2"
             action="action_cong_viec"
-            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+            groups="quan_ly_du_an.group_admin_du_an,quan_ly_du_an.group_nhan_vien_du_an"/>
 
-        <!-- ================= GIAI ĐOẠN ================= -->
+        <!-- ================= GIAI ĐOẠN =================
         <menuitem
             id="menu_giai_doan_cong_viec"
             name="Giai Đoạn Làm Việc"
             parent="menu_root_du_an"
             sequence="4"
             action="action_giai_doan_cong_viec"
-            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+            groups="quan_ly_du_an.group_admin_du_an,quan_ly_du_an.group_nhan_vien_du_an"/> -->
 
         <!-- ================= NHẬT KÝ ================= -->
         <menuitem
             id="menu_nhat_ky"
             name="Nhật Ký Công Việc"
             parent="menu_root_du_an"
-            sequence="5"
+            sequence="3"
             action="action_nhat_ky"
-            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+            groups="quan_ly_du_an.group_admin_du_an,quan_ly_du_an.group_nhan_vien_du_an"/>
+
+        <!-- <menuitem
+            id="menu_rui_ro"
+            name="Rủi Ro Dự Án"
+            parent="menu_root_du_an"
+            sequence="4"
+            action="action_rui_ro"
+            groups="quan_ly_du_an.group_admin_du_an,quan_ly_du_an.group_nhan_vien_du_an"/> -->
 
         <!-- ================= TÀI NGUYÊN ================= -->
-        <menuitem
+        <!-- <menuitem
             id="menu_tai_nguyen"
             name="Tài Nguyên Dự Án"
             parent="menu_root_du_an"
             sequence="6"
             action="action_tai_nguyen"
-            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+            groups="quan_ly_du_an.group_admin_du_an,quan_ly_du_an.group_nhan_vien_du_an"/> -->
 
         <!-- ================= ĐÁNH GIÁ ================= -->
-        <menuitem
+        <!-- <menuitem
             id="menu_danh_gia_nhan_vien"
             name="Đánh Giá Nhân Viên"
             parent="menu_root_du_an"
             sequence="7"
             action="action_danh_gia_nhan_vien"
-            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+            groups="quan_ly_du_an.group_admin_du_an,quan_ly_du_an.group_nhan_vien_du_an"/> -->
 
         <!-- ================= NGÂN SÁCH ================= -->
-        <menuitem
+        <!-- <menuitem
             id="menu_ngan_sach_du_an"
             name="Ngân Sách Dự Án"
             parent="menu_root_du_an"
             sequence="8"
             action="ngan_sach_du_an_action"
-            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+            groups="quan_ly_du_an.group_admin_du_an,quan_ly_du_an.group_nhan_vien_du_an"/> -->
 
         <!-- ================= CHI PHÍ ================= -->
-        <menuitem
+        <!-- <menuitem
             id="menu_chi_phi_du_an"
             name="Chi Phí Dự Án"
             parent="menu_root_du_an"
             sequence="9"
             action="chi_phi_du_an_action"
-            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+            groups="quan_ly_du_an.group_admin_du_an,quan_ly_du_an.group_nhan_vien_du_an"/> -->
 
         <!-- ================= BIỂU ĐỒ ================= -->
         <menuitem
             id="menu_bieu_do_cong_viec"
             name="Biểu Đồ Công Việc"
             parent="menu_root_du_an"
-            sequence="10"
+            sequence="4"
             action="bieu_do_cong_viec_action"
-            groups="quan_ly_cong_viec.group_admin_du_an,quan_ly_cong_viec.group_nhan_vien_du_an"/>
+            groups="quan_ly_du_an.group_admin_du_an,quan_ly_du_an.group_nhan_vien_du_an"/>
+
+        <menuitem
+            id="menu_lich_su_lam_viec"
+            name="Lịch Sử Làm Việc"
+            parent="menu_root_du_an"
+            sequence="5"
+            action="action_lich_su_lam_viec"
+            groups="quan_ly_du_an.group_admin_du_an,quan_ly_du_an.group_nhan_vien_du_an"/>
+
+        <menuitem
+            id="menu_tre_han"
+            name="⏰ Trễ Hạn"
+            parent="menu_root_du_an"
+            sequence="6"
+            action="action_tre_han"
+            groups="quan_ly_du_an.group_admin_du_an,quan_ly_du_an.group_nhan_vien_du_an"/>
+
+        <!-- Menu Lịch Sử Làm Việc trong app Nhân Sự -->
+        <menuitem
+            id="menu_lich_su_lam_viec_nhan_su"
+            name="Lịch Sử Làm Việc"
+            parent="nhan_su.menu_root"
+            sequence="5"
+            action="action_lich_su_lam_viec"/>
 
     </data>
 </odoo>
